@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Malampaya Phase 4: MAE-1 Discovery</title>
     
     <!-- Tailwind CSS -->
@@ -14,6 +14,9 @@
                 extend: {
                     colors: {
                         slate: { 850: '#1e293b' }
+                    },
+                    screens: {
+                        'xs': '475px',
                     }
                 }
             }
@@ -31,8 +34,18 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Custom Map Styles */
-        #map { height: 600px; width: 100%; border-radius: 1rem; z-index: 1; }
+        /* Responsive Map Styles */
+        #map { 
+            height: 50vh; 
+            min-height: 350px; 
+            width: 100%; 
+            border-radius: 1rem; 
+            z-index: 1; 
+        }
+        @media (min-width: 768px) {
+            #map { height: 600px; }
+        }
+
         .leaflet-popup-content-wrapper { background: #ffffff; color: #1e293b; border: 1px solid #cbd5e1; }
         .dark .leaflet-popup-content-wrapper { background: #1e293b; color: #ffffff; border: 1px solid #475569; }
         .leaflet-popup-tip { background: #ffffff; }
@@ -73,12 +86,12 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen pb-12 transition-colors duration-500">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen pb-12 transition-colors duration-500 overflow-x-hidden">
 
     <!-- Hero Header -->
-    <header class="relative bg-gradient-to-b from-blue-100 to-slate-50 dark:from-slate-900 dark:to-slate-800 p-12 border-b border-blue-200 dark:border-slate-700 shadow-xl overflow-hidden min-h-[60vh] flex flex-col justify-center items-center text-center transition-colors duration-500">
+    <header class="relative bg-gradient-to-b from-blue-100 to-slate-50 dark:from-slate-900 dark:to-slate-800 p-6 md:p-12 border-b border-blue-200 dark:border-slate-700 shadow-xl overflow-hidden min-h-[60vh] flex flex-col justify-center items-center text-center transition-colors duration-500">
         <!-- Dark Mode Toggle -->
-        <button onclick="toggleDarkMode()" class="absolute top-6 right-6 p-3 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:scale-110 transition-transform z-50">
+        <button onclick="toggleDarkMode()" class="absolute top-4 right-4 md:top-6 md:right-6 p-2 md:p-3 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:scale-110 transition-transform z-50">
             <i data-lucide="moon" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
             <i data-lucide="sun" class="w-5 h-5 block dark:hidden text-orange-500"></i>
         </button>
@@ -87,91 +100,90 @@
             <i data-lucide="waves" class="absolute -left-20 bottom-0 w-96 h-96 text-blue-600 dark:text-blue-400 opacity-20"></i>
         </div>
         
-        <div class="relative z-10 max-w-4xl mx-auto">
-            <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full border border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-400 font-bold tracking-wider text-xs uppercase shadow-sm backdrop-blur-md animate-bounce">
-                <i data-lucide="newspaper" class="w-4 h-4"></i>
-                Official Discovery Confirmed (Jan 2026)
+        <div class="relative z-10 max-w-4xl mx-auto w-full">
+            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full border border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-400 font-bold tracking-wider text-[10px] md:text-xs uppercase shadow-sm backdrop-blur-md animate-bounce">
+                <i data-lucide="newspaper" class="w-3 h-3 md:w-4 md:h-4"></i>
+                Discovery Confirmed (Jan 2026)
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 dark:from-blue-100 dark:via-blue-300 dark:to-blue-500 drop-shadow-sm">
+            <h1 class="text-4xl md:text-7xl font-extrabold mb-4 md:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 dark:from-blue-100 dark:via-blue-300 dark:to-blue-500 drop-shadow-sm leading-tight">
                 Malampaya Phase 4
             </h1>
-            <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+            <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8 px-2">
                 <strong>"A high-productivity resource."</strong><br>
-                Exploring the <span class="text-yellow-600 dark:text-yellow-400 font-bold">East 1 (MAE-1)</span> discovery and the Bagong Pag-asa campaign.
+                Exploring <span class="text-yellow-600 dark:text-yellow-400 font-bold">MAE-1</span> & Project Bagong Pag-asa.
             </p>
             
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#comparison-section" class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2">
+            <div class="flex flex-col sm:flex-row justify-center gap-3 w-full sm:w-auto px-4 sm:px-0">
+                <a href="#comparison-section" class="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-colors shadow-lg flex items-center justify-center gap-2">
                     Explore Data <i data-lucide="arrow-down" class="w-4 h-4"></i>
                 </a>
                 
-                <!-- Video Buttons Group (FIXED LABELS) -->
-                <div class="flex flex-wrap gap-2">
-                    <a href="https://www.youtube.com/watch?v=xUsumsg_1Ao" target="_blank" class="px-5 py-3 bg-white dark:bg-slate-800 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-600 rounded-full font-bold hover:bg-red-50 dark:hover:bg-slate-700 transition-colors shadow-lg flex items-center gap-2 group">
-                        <i data-lucide="youtube" class="w-5 h-5 group-hover:fill-red-600"></i> BBM Announcement
+                <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                    <a href="https://www.youtube.com/watch?v=xUsumsg_1Ao" target="_blank" class="w-full sm:w-auto px-5 py-3 bg-white dark:bg-slate-800 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-600 rounded-full font-bold hover:bg-red-50 dark:hover:bg-slate-700 transition-colors shadow-lg flex items-center justify-center gap-2 group">
+                        <i data-lucide="youtube" class="w-5 h-5 group-hover:fill-red-600"></i> BBM Speech
                     </a>
-                    <a href="https://www.youtube.com/watch?v=oYJUr53S27A" target="_blank" class="px-5 py-3 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-600 rounded-full font-bold hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors shadow-lg flex items-center gap-2 group">
-                        <i data-lucide="youtube" class="w-5 h-5 group-hover:fill-blue-600"></i> DOE Announcement
+                    <a href="https://www.youtube.com/watch?v=oYJUr53S27A" target="_blank" class="w-full sm:w-auto px-5 py-3 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-600 rounded-full font-bold hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors shadow-lg flex items-center justify-center gap-2 group">
+                        <i data-lucide="youtube" class="w-5 h-5 group-hover:fill-blue-600"></i> DOE Report
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-16 space-y-32">
+    <main class="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 space-y-24 md:space-y-32">
 
         <!-- SECTION 1: COMPARISON -->
         <section id="comparison-section" class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-blue-600 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">The Discovery Data</h2>
-                <span class="text-slate-400 text-lg hidden md:inline-block">/ MAE-1 Confirmed</span>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mb-8 md:mb-12 border-l-4 border-blue-600 pl-4 md:pl-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Discovery Data</h2>
+                <span class="text-slate-400 text-base md:text-lg">/ MAE-1 Confirmed</span>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
                 <!-- Existing Field Card -->
-                <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 relative overflow-hidden group hover:border-blue-500 transition-all duration-300 shadow-xl dark:shadow-none">
-                    <div class="absolute top-0 right-0 bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-bl-2xl text-xs font-mono text-slate-500 dark:text-slate-300 font-bold tracking-wider">SC 38 MAIN</div>
-                    <div class="flex items-center gap-5 mb-8">
-                        <div class="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-2xl text-blue-600 dark:text-blue-400 ring-1 ring-blue-100 dark:ring-blue-800">
-                            <i data-lucide="waves" class="w-10 h-10"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-700 relative overflow-hidden group hover:border-blue-500 transition-all duration-300 shadow-xl dark:shadow-none">
+                    <div class="absolute top-0 right-0 bg-slate-100 dark:bg-slate-700 px-3 py-1.5 md:px-4 md:py-2 rounded-bl-2xl text-[10px] md:text-xs font-mono text-slate-500 dark:text-slate-300 font-bold tracking-wider">SC 38 MAIN</div>
+                    <div class="flex items-center gap-4 md:gap-5 mb-6 md:mb-8">
+                        <div class="p-3 md:p-4 bg-blue-50 dark:bg-blue-900/30 rounded-2xl text-blue-600 dark:text-blue-400 ring-1 ring-blue-100 dark:ring-blue-800">
+                            <i data-lucide="waves" class="w-8 h-8 md:w-10 md:h-10"></i>
                         </div>
                         <div>
-                            <h2 class="text-3xl font-bold text-slate-800 dark:text-white">Original Field</h2>
-                            <p class="text-blue-600 dark:text-blue-400 font-medium">The Foundation (1989-Present)</p>
+                            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white">Original Field</h2>
+                            <p class="text-sm md:text-base text-blue-600 dark:text-blue-400 font-medium">The Foundation (1989-Present)</p>
                         </div>
                     </div>
-                    <div class="space-y-5" id="stats-main">
+                    <div class="space-y-4 md:space-y-5" id="stats-main">
                         <!-- Populated by JS -->
                     </div>
                 </div>
 
                 <!-- New Discovery Card -->
-                <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 relative overflow-hidden group hover:border-yellow-500 transition-all duration-300 shadow-xl dark:shadow-none">
-                    <div class="absolute top-0 right-0 bg-yellow-50 dark:bg-yellow-900/50 px-4 py-2 rounded-bl-2xl text-xs font-mono text-yellow-700 dark:text-yellow-400 border-l border-b border-yellow-100 dark:border-yellow-800 font-bold tracking-wider">MAE-1 DISCOVERY</div>
-                    <div class="flex items-center gap-5 mb-8">
-                        <div class="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-2xl text-yellow-600 dark:text-yellow-400 ring-1 ring-yellow-200 dark:ring-yellow-800">
-                            <i data-lucide="flame" class="w-10 h-10"></i>
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-700 relative overflow-hidden group hover:border-yellow-500 transition-all duration-300 shadow-xl dark:shadow-none">
+                    <div class="absolute top-0 right-0 bg-yellow-50 dark:bg-yellow-900/50 px-3 py-1.5 md:px-4 md:py-2 rounded-bl-2xl text-[10px] md:text-xs font-mono text-yellow-700 dark:text-yellow-400 border-l border-b border-yellow-100 dark:border-yellow-800 font-bold tracking-wider">MAE-1 DISCOVERY</div>
+                    <div class="flex items-center gap-4 md:gap-5 mb-6 md:mb-8">
+                        <div class="p-3 md:p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-2xl text-yellow-600 dark:text-yellow-400 ring-1 ring-yellow-200 dark:ring-yellow-800">
+                            <i data-lucide="flame" class="w-8 h-8 md:w-10 md:h-10"></i>
                         </div>
                         <div>
-                            <h2 class="text-3xl font-bold text-slate-800 dark:text-white">Malampaya East 1</h2>
-                            <p class="text-yellow-600 dark:text-yellow-400 font-medium">Project "Bagong Pag-asa"</p>
+                            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white">East 1</h2>
+                            <p class="text-sm md:text-base text-yellow-600 dark:text-yellow-400 font-medium">Project "Bagong Pag-asa"</p>
                         </div>
                     </div>
-                    <div class="space-y-5" id="stats-new">
+                    <div class="space-y-4 md:space-y-5" id="stats-new">
                         <!-- Populated by JS -->
                     </div>
                     
-                    <div class="mt-6 pt-4 border-t border-dashed border-slate-200 dark:border-slate-600 grid grid-cols-2 gap-4">
-                        <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-xl border border-green-100 dark:border-green-800 text-center">
-                            <div class="text-xs text-green-600 dark:text-green-400 font-bold uppercase mb-1">Safety Record</div>
-                            <div class="text-sm font-bold text-green-800 dark:text-green-200 flex items-center justify-center gap-1">
-                                <i data-lucide="shield-check" class="w-4 h-4"></i> 0 Accidents
+                    <div class="mt-6 pt-4 border-t border-dashed border-slate-200 dark:border-slate-600 grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-green-50 dark:bg-green-900/20 p-2 md:p-3 rounded-xl border border-green-100 dark:border-green-800 text-center">
+                            <div class="text-[10px] md:text-xs text-green-600 dark:text-green-400 font-bold uppercase mb-1">Safety Record</div>
+                            <div class="text-xs md:text-sm font-bold text-green-800 dark:text-green-200 flex items-center justify-center gap-1">
+                                <i data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4"></i> 0 Accidents
                             </div>
                         </div>
-                        <div class="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-xl border border-purple-100 dark:border-purple-800 text-center">
-                            <div class="text-xs text-purple-600 dark:text-purple-400 font-bold uppercase mb-1">Bonus Resource</div>
-                            <div class="text-sm font-bold text-purple-800 dark:text-purple-200 flex items-center justify-center gap-1">
-                                <i data-lucide="droplet" class="w-4 h-4"></i> Condensate
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-2 md:p-3 rounded-xl border border-purple-100 dark:border-purple-800 text-center">
+                            <div class="text-[10px] md:text-xs text-purple-600 dark:text-purple-400 font-bold uppercase mb-1">Bonus Resource</div>
+                            <div class="text-xs md:text-sm font-bold text-purple-800 dark:text-purple-200 flex items-center justify-center gap-1">
+                                <i data-lucide="droplet" class="w-3 h-3 md:w-4 md:h-4"></i> Condensate
                             </div>
                         </div>
                     </div>
@@ -179,66 +191,56 @@
             </div>
         </section>
 
-        <!-- SECTION 1.5: PROJECT TIMELINE (NEW) -->
+        <!-- SECTION 1.5: PROJECT TIMELINE -->
         <section id="timeline-section" class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-orange-500 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Roadmap to First Gas</h2>
-                <p class="text-slate-500 dark:text-slate-400">The development timeline for Malampaya East 1.</p>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mb-8 md:mb-12 border-l-4 border-orange-500 pl-4 md:pl-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Roadmap</h2>
+                <p class="text-slate-500 dark:text-slate-400">Path to First Gas.</p>
             </div>
 
-            <div class="relative">
+            <div class="relative pl-4 md:pl-0">
                 <!-- Connecting Line -->
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-slate-200 dark:bg-slate-700 -ml-0.5 md:ml-0"></div>
+                <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-slate-200 dark:bg-slate-700 -ml-0.5 md:ml-0"></div>
 
                 <div class="space-y-8">
                     <!-- Event 1 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-slate-400 rounded-full border-4 border-white dark:border-slate-800 -translate-x-1.5 md:-translate-x-2"></div>
-                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:mr-auto">
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:flex-row-reverse group">
+                        <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-slate-400 rounded-full border-4 border-white dark:border-slate-800 -translate-x-2 md:-translate-x-2 mt-1.5 md:mt-0"></div>
+                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:mr-auto">
                             <span class="text-xs font-bold text-slate-400 mb-1 block">2024 - 2025</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Drilling Campaign Begins</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Arrival of the <em>Noble Viking</em> drillship. Commencement of the "Bagong Pag-asa" drilling program targeting Camago and East 1.</p>
+                            <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white mb-1">Drilling Campaign</h3>
+                            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400"><em>Noble Viking</em> drillship begins "Bagong Pag-asa" campaign.</p>
                         </div>
                     </div>
 
                     <!-- Event 2 (Current) -->
-                    <div class="relative flex items-center justify-between md:justify-normal group">
-                        <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-yellow-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-2.5 md:-translate-x-3 animate-pulse"></div>
-                        <div class="ml-12 md:ml-0 md:w-[45%] bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-2xl border border-yellow-200 dark:border-yellow-700 shadow-md md:ml-auto">
-                            <div class="inline-block bg-yellow-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">CURRENT STATUS</div>
-                            <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400 mb-1 block">January 2026</span>
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Discovery Confirmed</h3>
-                            <p class="text-sm text-slate-700 dark:text-slate-300">Official confirmation of <strong>Malampaya East 1</strong> discovery with 60 MMSCFD initial flow and condensate findings.</p>
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal group">
+                        <div class="absolute left-8 md:left-1/2 w-6 h-6 bg-yellow-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-3 md:-translate-x-3 animate-pulse mt-1 md:mt-0"></div>
+                        <div class="ml-12 md:ml-0 md:w-[45%] bg-yellow-50 dark:bg-yellow-900/20 p-5 rounded-2xl border border-yellow-200 dark:border-yellow-700 shadow-md md:ml-auto">
+                            <div class="inline-block bg-yellow-500 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">CURRENT</div>
+                            <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400 mb-1 block">Jan 2026</span>
+                            <h3 class="text-base md:text-lg font-bold text-slate-900 dark:text-white mb-1">Discovery Confirmed</h3>
+                            <p class="text-xs md:text-sm text-slate-700 dark:text-slate-300">MAE-1 discovery with 60 MMSCFD flow.</p>
                         </div>
                     </div>
 
                     <!-- Event 3 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-1.5 md:-translate-x-2"></div>
-                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:mr-auto">
-                            <span class="text-xs font-bold text-blue-500 mb-1 block">Mid-Late 2026</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Tie-Back Engineering</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Fabrication and procurement of subsea umbilical, risers, and flowlines (SURF) to connect the new well to the existing platform 5km away.</p>
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:flex-row-reverse group">
+                        <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-2 md:-translate-x-2 mt-1.5 md:mt-0"></div>
+                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:mr-auto">
+                            <span class="text-xs font-bold text-blue-500 mb-1 block">Mid 2026</span>
+                            <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white mb-1">Tie-Back Engineering</h3>
+                            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400">Subsea infrastructure fabrication to connect well to platform.</p>
                         </div>
                     </div>
 
                     <!-- Event 4 -->
-                    <div class="relative flex items-center justify-between md:justify-normal group">
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-1.5 md:-translate-x-2"></div>
-                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:ml-auto">
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal group">
+                        <div class="absolute left-8 md:left-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-white dark:border-slate-800 -translate-x-2 md:-translate-x-2 mt-1.5 md:mt-0"></div>
+                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:ml-auto">
                             <span class="text-xs font-bold text-green-500 mb-1 block">2027</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Target "First Gas"</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Installation of subsea infrastructure. MAE-1 gas officially enters the Malampaya pipeline, arresting the pressure decline.</p>
-                        </div>
-                    </div>
-                    
-                     <!-- Event 5 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-slate-400 rounded-full border-4 border-white dark:border-slate-800 -translate-x-1.5 md:-translate-x-2"></div>
-                        <div class="ml-12 md:ml-0 md:w-[45%] bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm md:mr-auto">
-                            <span class="text-xs font-bold text-slate-400 mb-1 block">2027 - 2028+</span>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Future Expansion</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Potential development of additional nearby prospects like <em>Bagong Pag-asa</em> depending on further exploration results.</p>
+                            <h3 class="text-base md:text-lg font-bold text-slate-800 dark:text-white mb-1">Target "First Gas"</h3>
+                            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400">MAE-1 gas enters pipeline, arresting production decline.</p>
                         </div>
                     </div>
                 </div>
@@ -247,35 +249,35 @@
 
         <!-- SECTION 2: MAP & INTERACTIVE ROUTE -->
         <section id="map-section" class="reveal-on-scroll">
-            <div class="flex items-center justify-between mb-8 border-l-4 border-yellow-500 pl-6">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-4 mb-8 border-l-4 border-yellow-500 pl-4 md:pl-6">
                 <div>
-                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Pipeline & Supply Chain</h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-2">Connecting Palawan to the Batangas Power Hub.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Pipeline & Supply</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Palawan to Batangas.</p>
                 </div>
             </div>
 
             <div class="grid lg:grid-cols-4 gap-6">
                 
                 <!-- Map Container -->
-                <div class="lg:col-span-3 bg-white dark:bg-slate-800 p-2 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-2xl dark:shadow-none relative">
+                <div class="lg:col-span-3 bg-white dark:bg-slate-800 p-2 md:p-3 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-2xl dark:shadow-none relative order-2 lg:order-1">
                     <div id="map" class="filter grayscale-[10%] transition-all duration-700"></div>
                     
                     <!-- Legend Overlay -->
-                    <div class="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-slate-800/90 backdrop-blur p-4 rounded-xl border border-slate-200 dark:border-slate-600 shadow-lg text-xs md:text-sm font-mono flex flex-wrap justify-between gap-4 z-[500] text-slate-800 dark:text-slate-200">
+                    <div class="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-3 md:p-4 rounded-xl border border-slate-200 dark:border-slate-600 shadow-lg text-[10px] md:text-sm font-mono flex flex-col md:flex-row md:flex-wrap justify-between gap-2 md:gap-4 z-[500] text-slate-800 dark:text-slate-200">
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-blue-500 ring-2 ring-blue-100 dark:ring-blue-900 block"></span> Main Platform
+                            <span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-500 ring-2 ring-blue-100 dark:ring-blue-900 block"></span> Main Platform
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-yellow-500 ring-2 ring-yellow-100 dark:ring-yellow-900 block animate-pulse"></span> East 1
+                            <span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500 ring-2 ring-yellow-100 dark:ring-yellow-900 block animate-pulse"></span> East 1
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-green-500 ring-2 ring-green-100 dark:ring-green-900 block"></span> First Gen Complex
+                            <span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500 ring-2 ring-green-100 dark:ring-green-900 block"></span> First Gen Complex
                         </div>
                     </div>
                 </div>
 
                 <!-- Controls Sidebar -->
-                <div class="lg:col-span-1 bg-slate-900 text-white p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+                <div class="lg:col-span-1 bg-slate-900 text-white p-6 rounded-3xl shadow-xl flex flex-col justify-between order-1 lg:order-2">
                     <div>
                         <div class="flex items-center gap-2 mb-6 text-yellow-400">
                             <i data-lucide="sliders" class="w-5 h-5"></i>
@@ -283,8 +285,8 @@
                         </div>
                         
                         <div class="mb-6">
-                            <label for="flowSlider" class="block text-sm font-medium text-slate-400 mb-4">Daily Delivery (MMSCFD)</label>
-                            <input type="range" id="flowSlider" min="0" max="500" value="250" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <label for="flowSlider" class="block text-sm font-medium text-slate-400 mb-4">Daily Delivery</label>
+                            <input type="range" id="flowSlider" min="0" max="500" value="250" class="w-full h-4 bg-slate-700 rounded-full appearance-none cursor-pointer">
                             <div class="flex justify-between mt-2 text-xs text-slate-500 font-mono">
                                 <span>0</span>
                                 <span>250</span>
@@ -293,132 +295,122 @@
                         </div>
                         
                         <div class="grid grid-cols-2 gap-2 mb-6">
-                            <button id="btn-test-flow" class="px-3 py-2 bg-yellow-600/20 hover:bg-yellow-600/40 text-yellow-400 text-xs font-bold rounded-lg border border-yellow-600/50 transition-colors">
-                                SET: Test Flow (60)
+                            <button id="btn-test-flow" class="px-3 py-2 bg-yellow-600/20 hover:bg-yellow-600/40 text-yellow-400 text-[10px] md:text-xs font-bold rounded-lg border border-yellow-600/50 transition-colors">
+                                SET: Test (60)
                             </button>
-                            <button id="btn-max-flow" class="px-3 py-2 bg-green-600/20 hover:bg-green-600/40 text-green-400 text-xs font-bold rounded-lg border border-green-600/50 transition-colors">
-                                SET: Max Capacity
+                            <button id="btn-max-flow" class="px-3 py-2 bg-green-600/20 hover:bg-green-600/40 text-green-400 text-[10px] md:text-xs font-bold rounded-lg border border-green-600/50 transition-colors">
+                                SET: Max
                             </button>
                         </div>
 
-                        <div class="space-y-6">
+                        <div class="space-y-4 md:space-y-6">
                             <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                                 <div class="text-xs text-slate-400 mb-1">Current Flow</div>
-                                <div class="text-3xl font-mono font-bold text-white flex items-baseline gap-2">
+                                <div class="text-2xl md:text-3xl font-mono font-bold text-white flex items-baseline gap-2">
                                     <span id="flowValue">250</span>
-                                    <span class="text-sm text-slate-500">MMSCFD</span>
+                                    <span class="text-xs md:text-sm text-slate-500">MMSCFD</span>
                                 </div>
                             </div>
 
                             <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
                                 <div class="text-xs text-slate-400 mb-1">Grid Impact (Est.)</div>
-                                <div class="text-2xl font-mono font-bold text-green-400 flex items-baseline gap-2">
+                                <div class="text-xl md:text-2xl font-mono font-bold text-green-400 flex items-baseline gap-2">
                                     <span id="powerValue">~20</span>%
-                                    <span class="text-xs text-slate-500">Luzon Needs</span>
+                                    <span class="text-xs text-slate-500">Luzon</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="mt-8 pt-6 border-t border-slate-800">
-                        <div class="flex items-center gap-3">
-                            <div class="p-2 bg-yellow-500/20 rounded-lg text-yellow-500 animate-pulse">
-                                <i data-lucide="zap" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs text-slate-400">Real-time Status</div>
-                                <div class="font-bold text-sm text-white" id="statusText">Steady Flow</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: SEA TO SOCKET (NEW) -->
+        <!-- SECTION 3: SEA TO SOCKET -->
         <section class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-cyan-500 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Sea to Socket</h2>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mb-8 md:mb-12 border-l-4 border-cyan-500 pl-4 md:pl-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Sea to Socket</h2>
                 <p class="text-slate-500 dark:text-slate-400">The journey of indigenous gas.</p>
             </div>
             
-            <div class="grid md:grid-cols-5 gap-4 relative">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 relative">
                 <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-200 dark:bg-slate-700 -z-10 hidden md:block"></div>
                 
-                <!-- Step 1 -->
+                <!-- Steps -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-                    <div class="text-4xl mb-2">🌊</div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg md:text-xl font-bold">1</div>
+                    <div class="text-3xl md:text-4xl mb-2">🌊</div>
                     <h3 class="font-bold text-slate-900 dark:text-white">Extraction</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Gas extracted from 3,000m deep reservoir via subsea wells.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">3,000m deep reservoir.</p>
                 </div>
-                <!-- Step 2 -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-                    <div class="text-4xl mb-2">⚙️</div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg md:text-xl font-bold">2</div>
+                    <div class="text-3xl md:text-4xl mb-2">⚙️</div>
                     <h3 class="font-bold text-slate-900 dark:text-white">Processing</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Separation of gas and condensate at the Platform.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Platform separation.</p>
                 </div>
-                <!-- Step 3 -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
-                    <div class="text-4xl mb-2">🛣️</div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg md:text-xl font-bold">3</div>
+                    <div class="text-3xl md:text-4xl mb-2">🛣️</div>
                     <h3 class="font-bold text-slate-900 dark:text-white">Transport</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">504km journey via subsea pipeline to Batangas.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">504km subsea pipeline.</p>
                 </div>
-                <!-- Step 4 -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
-                    <div class="text-4xl mb-2">🏭</div>
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg md:text-xl font-bold">4</div>
+                    <div class="text-3xl md:text-4xl mb-2">🏭</div>
                     <h3 class="font-bold text-slate-900 dark:text-white">Generation</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Converted to electricity in Combined Cycle Plants.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Converted to electricity.</p>
                 </div>
-                <!-- Step 5 -->
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">5</div>
-                    <div class="text-4xl mb-2">💡</div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform hidden sm:block md:block">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg md:text-xl font-bold">5</div>
+                    <div class="text-3xl md:text-4xl mb-2">💡</div>
                     <h3 class="font-bold text-slate-900 dark:text-white">Distribution</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Delivered to Meralco and electric co-ops for homes.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">To homes & grid.</p>
+                </div>
+                 <!-- Mobile Only Step 5 -->
+                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg text-center hover:-translate-y-2 transition-transform sm:hidden">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-bold">5</div>
+                    <div class="text-3xl mb-2">💡</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white">Distribution</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">To homes & grid.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 4: DRILLSHIP SPOTLIGHT (NEW) -->
+        <!-- SECTION 4: DRILLSHIP SPOTLIGHT -->
         <section class="reveal-on-scroll">
-            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+            <div class="bg-slate-900 rounded-3xl p-6 md:p-12 text-white relative overflow-hidden shadow-2xl">
                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
-                <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <div>
-                        <div class="inline-block bg-yellow-600 px-3 py-1 rounded-full text-xs font-bold mb-4">PHASE 4 STAR</div>
-                        <h2 class="text-4xl font-bold mb-4">The Noble Viking</h2>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
-                            A state-of-the-art 7th generation drillship contracted for the Malampaya expansion. It is equipped with dual derricks and advanced automated drilling control systems, ensuring safety and precision in deep water operations.
+                        <div class="inline-block bg-yellow-600 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold mb-4">PHASE 4 STAR</div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">The Noble Viking</h2>
+                        <p class="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
+                            A state-of-the-art 7th generation drillship equipped with dual derricks and advanced automated drilling control systems.
                         </p>
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-2 gap-4 md:gap-6">
                             <div>
-                                <div class="text-3xl font-bold text-yellow-400">12,000 ft</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wide">Max Water Depth</div>
+                                <div class="text-2xl md:text-3xl font-bold text-yellow-400">12k ft</div>
+                                <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wide">Max Water Depth</div>
                             </div>
                             <div>
-                                <div class="text-3xl font-bold text-yellow-400">40,000 ft</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wide">Drilling Depth</div>
+                                <div class="text-2xl md:text-3xl font-bold text-yellow-400">40k ft</div>
+                                <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wide">Drilling Depth</div>
                             </div>
                             <div>
-                                <div class="text-3xl font-bold text-yellow-400">Dual</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wide">Activity Derrick</div>
+                                <div class="text-2xl md:text-3xl font-bold text-yellow-400">Dual</div>
+                                <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wide">Derrick System</div>
                             </div>
                             <div>
-                                <div class="text-3xl font-bold text-yellow-400">DP3</div>
-                                <div class="text-xs text-slate-400 uppercase tracking-wide">Dynamic Positioning</div>
+                                <div class="text-2xl md:text-3xl font-bold text-yellow-400">DP3</div>
+                                <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wide">Positioning</div>
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-center">
-                        <div class="w-full h-64 bg-slate-800 rounded-2xl border-2 border-slate-700 flex items-center justify-center relative overflow-hidden group">
-                            <!-- Schematic representation -->
+                        <div class="w-full h-48 md:h-64 bg-slate-800 rounded-2xl border-2 border-slate-700 flex items-center justify-center relative overflow-hidden group">
                             <div class="text-center">
-                                <i data-lucide="ship" class="w-32 h-32 text-slate-600 group-hover:text-yellow-500 transition-colors duration-500"></i>
-                                <p class="text-sm text-slate-500 mt-4">Deepwater Drillship Schematic</p>
+                                <i data-lucide="ship" class="w-24 h-24 md:w-32 md:h-32 text-slate-600 group-hover:text-yellow-500 transition-colors duration-500"></i>
+                                <p class="text-xs md:text-sm text-slate-500 mt-4">Deepwater Drillship Schematic</p>
                             </div>
                         </div>
                     </div>
@@ -428,63 +420,59 @@
 
         <!-- SECTION 5: CUSTOMERS -->
         <section id="customers-section" class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-green-600 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Key Power Customers</h2>
-                <p class="text-slate-500 dark:text-slate-400">Supplying <strong>2,011 MW</strong> to the Luzon Grid (First Gen Complex)</p>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mb-8 md:mb-12 border-l-4 border-green-600 pl-4 md:pl-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Customers</h2>
+                <p class="text-slate-500 dark:text-slate-400">Supplying <strong>2,011 MW</strong> to Luzon.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="customers-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" id="customers-container">
                 <!-- JS Will Populate This -->
             </div>
         </section>
 
-        <!-- SECTION 6: ECONOMIC & CARBON CALCULATOR (NEW) -->
+        <!-- SECTION 6: ECONOMIC & CARBON CALCULATOR -->
         <section class="reveal-on-scroll">
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
                 <!-- Carbon Savings -->
-                <div class="bg-emerald-900 text-white rounded-3xl p-8 relative overflow-hidden shadow-xl">
-                    <i data-lucide="leaf" class="absolute -right-6 -top-6 w-40 h-40 text-emerald-800 opacity-50"></i>
-                    <h3 class="text-2xl font-bold mb-6 relative z-10">Carbon Reduction</h3>
-                    <p class="text-emerald-100 mb-8 relative z-10 text-sm">
-                        Natural gas emits ~50% less CO2 than coal. By extending Malampaya, we avoid shifting 2,000 MW back to coal generation.
+                <div class="bg-emerald-900 text-white rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-xl">
+                    <i data-lucide="leaf" class="absolute -right-6 -top-6 w-32 h-32 md:w-40 md:h-40 text-emerald-800 opacity-50"></i>
+                    <h3 class="text-2xl font-bold mb-4 relative z-10">Carbon Reduction</h3>
+                    <p class="text-emerald-100 mb-6 relative z-10 text-sm">
+                        Natural gas emits ~50% less CO2 than coal. Extending Malampaya avoids shifting 2,000 MW back to coal.
                     </p>
                     
-                    <div class="bg-emerald-800/50 rounded-xl p-6 relative z-10 border border-emerald-700">
+                    <div class="bg-emerald-800/50 rounded-xl p-4 md:p-6 relative z-10 border border-emerald-700">
                         <div class="flex justify-between items-end mb-2">
-                            <span class="text-sm text-emerald-200">Annual CO2 Avoided</span>
-                            <span class="text-3xl font-bold">~1.8 Million</span>
+                            <span class="text-xs md:text-sm text-emerald-200">Annual CO2 Avoided</span>
+                            <span class="text-2xl md:text-3xl font-bold">~1.8 M</span>
                         </div>
-                        <div class="text-xs text-emerald-300 text-right mb-4">Tonnes per Year (Est.)</div>
+                        <div class="text-[10px] md:text-xs text-emerald-300 text-right mb-4">Tonnes per Year (Est.)</div>
                         <div class="w-full bg-emerald-950 rounded-full h-3">
                             <div class="bg-emerald-400 h-3 rounded-full" style="width: 50%"></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] text-emerald-400 mt-2">
-                            <span>Gas Emissions</span>
-                            <span>Coal Emissions (Avoided)</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Economic Savings -->
-                <div class="bg-blue-900 text-white rounded-3xl p-8 relative overflow-hidden shadow-xl">
-                    <i data-lucide="coins" class="absolute -right-6 -top-6 w-40 h-40 text-blue-800 opacity-50"></i>
-                    <h3 class="text-2xl font-bold mb-6 relative z-10">Economic Shield</h3>
-                    <p class="text-blue-100 mb-8 relative z-10 text-sm">
-                        Indigenous gas is priced independently of volatile international spot markets, protecting consumers from price shocks.
+                <div class="bg-blue-900 text-white rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-xl">
+                    <i data-lucide="coins" class="absolute -right-6 -top-6 w-32 h-32 md:w-40 md:h-40 text-blue-800 opacity-50"></i>
+                    <h3 class="text-2xl font-bold mb-4 relative z-10">Economic Shield</h3>
+                    <p class="text-blue-100 mb-6 relative z-10 text-sm">
+                        Indigenous gas protects consumers from volatile international spot market price shocks.
                     </p>
                     
-                    <div class="space-y-4 relative z-10">
+                    <div class="space-y-3 relative z-10">
                         <div class="flex justify-between items-center p-3 bg-blue-800/50 rounded-lg border border-blue-700">
-                            <span class="text-sm">Imported LNG (Spot)</span>
-                            <span class="font-mono text-red-300">$$$ Volatile</span>
+                            <span class="text-xs md:text-sm">Imported LNG</span>
+                            <span class="font-mono text-red-300 text-xs md:text-sm">$$$ Volatile</span>
                         </div>
                         <div class="flex justify-between items-center p-3 bg-blue-800/50 rounded-lg border border-blue-700">
-                            <span class="text-sm">Imported Coal</span>
-                            <span class="font-mono text-orange-300">$$ High Risk</span>
+                            <span class="text-xs md:text-sm">Imported Coal</span>
+                            <span class="font-mono text-orange-300 text-xs md:text-sm">$$ High Risk</span>
                         </div>
                         <div class="flex justify-between items-center p-3 bg-green-600 rounded-lg border border-green-500 shadow-lg transform scale-105">
-                            <span class="font-bold">Malampaya Gas</span>
-                            <span class="font-mono font-bold">$ Stable</span>
+                            <span class="font-bold text-sm">Malampaya Gas</span>
+                            <span class="font-mono font-bold text-sm">$ Stable</span>
                         </div>
                     </div>
                 </div>
@@ -493,208 +481,31 @@
 
         <!-- SECTION 7: DEPLETION GRAPH -->
         <section id="depletion-section" class="reveal-on-scroll">
-             <div class="flex items-center gap-4 mb-12 border-l-4 border-red-500 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Phase 4 Extension</h2>
+             <div class="flex items-center gap-4 mb-8 md:mb-12 border-l-4 border-red-500 pl-4 md:pl-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Extension</h2>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8">
-                 <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl dark:shadow-none">
+                 <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-4 md:p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl dark:shadow-none">
                     <canvas id="depletionChart" height="250"></canvas>
                 </div>
 
-                <div class="lg:col-span-1 space-y-6">
+                <div class="lg:col-span-1 space-y-4">
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-md">
-                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Project Sinag / Phase 4</h3>
+                        <h3 class="text-lg font-bold mb-3 text-slate-900 dark:text-white">Project Sinag</h3>
                         <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
-                            The aggressive drilling campaign targets multiple wells to extend the field's life.
+                            Extending field life via multiple new wells.
                         </p>
-                        <div class="space-y-3">
+                        <div class="space-y-2">
                             <div class="flex items-center gap-3 p-2 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
-                                <span class="text-sm font-bold text-slate-700 dark:text-slate-200">Malampaya East 1 (MAE-1)</span>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600 dark:text-green-400"></i>
+                                <span class="text-xs md:text-sm font-bold text-slate-700 dark:text-slate-200">MAE-1 (Confirmed)</span>
                             </div>
+                            <!-- Other targets simplified for mobile -->
                             <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600 opacity-70">
-                                <i data-lucide="target" class="w-5 h-5 text-slate-400"></i>
-                                <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Camago-2</span>
+                                <i data-lucide="target" class="w-4 h-4 text-slate-400"></i>
+                                <span class="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300">Future: Camago & Pag-asa</span>
                             </div>
-                            <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600 opacity-70">
-                                <i data-lucide="target" class="w-5 h-5 text-slate-400"></i>
-                                <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Camago-3</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600 opacity-70">
-                                <i data-lucide="target" class="w-5 h-5 text-slate-400"></i>
-                                <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Bagong Pag-asa</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 8: EFFICIENCY GRAPH -->
-        <section id="graph-section" class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-purple-600 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Plant Efficiency Comparison</h2>
-            </div>
-            
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Text Context -->
-                <div class="lg:col-span-1 space-y-6">
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-md">
-                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Why Technology Matters</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                            Malampaya East 1 contains approximately <strong>98 BCF</strong>. The electricity output depends on the plant type.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chart -->
-                <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl dark:shadow-none">
-                    <canvas id="efficiencyChart" height="200"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 9: IMPACT COMPARISON -->
-        <section id="impact-section" class="reveal-on-scroll">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-blue-600 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Total Power Potential</h2>
-                <p class="text-slate-500 dark:text-slate-400">What do these reserves mean for the real world?</p>
-            </div>
-            
-             <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl dark:shadow-none overflow-hidden">
-                <div class="grid md:grid-cols-2">
-                    
-                    <!-- Original Field Column -->
-                    <div class="p-8 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
-                        <div class="flex items-center gap-4 mb-8">
-                            <div class="p-3 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-xl">
-                                <i data-lucide="waves" class="w-8 h-8"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white">Original Field</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 font-mono">3.0 TCF Reserves</p>
-                            </div>
-                        </div>
-                         <div class="space-y-6">
-                            <div class="flex items-center justify-between p-4 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 shadow-sm">
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-lg text-blue-600 dark:text-blue-400"><i data-lucide="home" class="w-5 h-5"></i></div>
-                                    <div class="text-sm text-slate-600 dark:text-slate-300">Households</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-xl text-slate-900 dark:text-white">~178 Million</div>
-                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">1-Year Supply Equiv.</div>
-                                </div>
-                            </div>
-                         </div>
-                    </div>
-
-                    <!-- East 1 Column -->
-                    <div class="p-8 bg-yellow-50/30 dark:bg-yellow-900/10">
-                        <div class="flex items-center gap-4 mb-8">
-                            <div class="p-3 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 rounded-xl">
-                                <i data-lucide="flame" class="w-8 h-8"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white">MAE-1 (New)</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 font-mono">98 BCF Reserves</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div class="flex items-center justify-between p-4 bg-white dark:bg-slate-700 rounded-xl border border-yellow-200 dark:border-yellow-700/30 shadow-sm relative overflow-hidden">
-                                <div class="absolute inset-0 bg-yellow-50 dark:bg-yellow-900/20 opacity-50"></div>
-                                <div class="relative flex items-center gap-3">
-                                    <div class="bg-yellow-100 dark:bg-yellow-900/50 p-2 rounded-lg text-yellow-600 dark:text-yellow-400"><i data-lucide="home" class="w-5 h-5"></i></div>
-                                    <div class="text-sm text-slate-800 dark:text-white font-medium">Households</div>
-                                </div>
-                                <div class="relative text-right">
-                                    <div class="font-bold text-xl text-slate-900 dark:text-white">~5.7 Million</div>
-                                    <div class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">1-Year Supply Equiv.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 10: OWNERSHIP & LNG INFRASTRUCTURE -->
-        <section id="stakeholders-section" class="reveal-on-scroll pb-16">
-            <div class="flex items-center gap-4 mb-12 border-l-4 border-slate-600 dark:border-slate-400 pl-6">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white">Ownership & Infrastructure</h2>
-                <p class="text-slate-500 dark:text-slate-400">The consortium and the complementary LNG terminals.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Consortium Card -->
-                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-lg dark:shadow-none p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl text-slate-700 dark:text-slate-200">
-                            <i data-lucide="briefcase" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-800 dark:text-white">The Consortium</h3>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-100 dark:border-slate-700">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-800 dark:text-white">Prime Energy</span>
-                                <span class="text-xs text-slate-500 dark:text-slate-400">Subsidiary of Prime Infra</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="block font-bold text-blue-600 dark:text-blue-400 text-lg">45%</span>
-                                <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full font-bold">OPERATOR</span>
-                            </div>
-                        </div>
-                         <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-100 dark:border-slate-700">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-800 dark:text-white">UC38 LLC</span>
-                                <span class="text-xs text-slate-500 dark:text-slate-400">Udenna Corporation Group</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="block font-bold text-slate-600 dark:text-slate-400 text-lg">45%</span>
-                            </div>
-                        </div>
-                         <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-100 dark:border-slate-700">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-800 dark:text-white">PNOC-EC</span>
-                                <span class="text-xs text-slate-500 dark:text-slate-400">Phil. National Oil Company</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="block font-bold text-slate-600 dark:text-slate-400 text-lg">10%</span>
-                                <span class="text-xs bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-200 px-2 py-0.5 rounded-full font-bold">GOVT</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LNG Infrastructure Card -->
-                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-lg dark:shadow-none p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-xl text-blue-600 dark:text-blue-400">
-                            <i data-lucide="ship" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-800 dark:text-white">LNG Import Terminals</h3>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Batangas terminals supplementing supply.</p>
-
-                    <div class="space-y-4">
-                        <div class="p-4 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="font-bold text-slate-800 dark:text-white">FGEN LNG Terminal</span>
-                                <span class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full font-bold">OPERATIONAL</span>
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-400">Owned by <strong>First Gen Corp</strong>. Uses FSRU <em>"BW Batangas"</em>.</p>
-                        </div>
-                        <div class="p-4 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="font-bold text-slate-800 dark:text-white">PHLNG Import Terminal</span>
-                                <span class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full font-bold">OPERATIONAL</span>
-                            </div>
-                            <p class="text-xs text-slate-600 dark:text-slate-400">Owned by <strong>Linseed Field Power (AG&P)</strong>.</p>
                         </div>
                     </div>
                 </div>
@@ -703,7 +514,7 @@
 
     </main>
     
-    <footer class="text-center py-12 text-slate-400 text-sm border-t border-slate-200 dark:border-slate-700">
+    <footer class="text-center py-8 md:py-12 text-slate-400 text-xs md:text-sm border-t border-slate-200 dark:border-slate-700">
         <p>&copy; 2026 Malampaya Expansion Visualization.</p>
     </footer>
 
@@ -715,7 +526,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- DATA ---
             const mapConfig = {
                 east1: { lat: 11.536, lng: 119.212 },
                 main: { lat: 11.536, lng: 119.167 },
@@ -723,26 +533,25 @@
             };
 
             const customersData = [
-                { name: "Sta. Rita", mw: 1000, type: "Combined Cycle", psa: "Long-term PSA", wesm: "Minimal", color: "bg-blue-500" },
-                { name: "San Lorenzo", mw: 500, type: "Combined Cycle", psa: "Long-term PSA", wesm: "Minimal", color: "bg-indigo-500" },
-                { name: "San Gabriel", mw: 414, type: "Combined Cycle", psa: "Mid-Merit / Flex", wesm: "Active Exposure", color: "bg-purple-500" },
-                { name: "Avion", mw: 97, type: "Open Cycle", psa: "Ancillary / Spot", wesm: "High (Peaking)", color: "bg-orange-500" }
+                { name: "Sta. Rita", mw: 1000, type: "Combined Cycle", psa: "PSA", wesm: "Low", color: "bg-blue-500" },
+                { name: "San Lorenzo", mw: 500, type: "Combined Cycle", psa: "PSA", wesm: "Low", color: "bg-indigo-500" },
+                { name: "San Gabriel", mw: 414, type: "Combined Cycle", psa: "Mid-Merit", wesm: "Active", color: "bg-purple-500" },
+                { name: "Avion", mw: 97, type: "Open Cycle", psa: "Spot", wesm: "High", color: "bg-orange-500" }
             ];
 
             const statsMain = [
                 { label: "Discovery", value: "1989 / 1990", icon: "history" },
                 { label: "First Gas", value: "2001", icon: "zap" },
-                { label: "Original Reserves", value: "~2.7 - 3.0 TCF", sub: "Trillion Cubic Feet", icon: "droplets", highlight: true },
-                { label: "Energy Equiv.", value: "~447 Billion kWh", sub: "Lifetime (CCGT)", icon: "battery-charging", color: "text-blue-600 dark:text-blue-400" },
-                { label: "Status", value: "Depleting", icon: "activity", color: "text-orange-600 dark:text-orange-400" }
+                { label: "Reserves", value: "~3.0 TCF", sub: "Trillion Cubic Feet", icon: "droplets", highlight: true },
+                { label: "Energy", value: "~447 B kWh", sub: "Lifetime", icon: "battery-charging", color: "text-blue-600 dark:text-blue-400" },
             ];
 
             const statsNew = [
-                { label: "Discovery", value: "2026 (Confirmed)", icon: "history" },
-                { label: "Tie-in Target", value: "2026/2027", icon: "zap" },
-                { label: "Est. Reserves", value: "~98 BCF", sub: "Billion Cubic Feet", icon: "droplets", highlight: true, color: "text-yellow-600 dark:text-yellow-400" },
-                { label: "Energy Equiv.", value: "~14-15 Billion kWh", sub: "Annual Equivalent (CCGT)", icon: "battery-charging", color: "text-green-600 dark:text-green-400" },
-                { label: "Initial Flow", value: "60 MMSCFD", sub: "Confirms High Productivity", icon: "gauge", color: "text-green-600 dark:text-green-400", highlight: true }
+                { label: "Discovery", value: "Jan 2026", icon: "history" },
+                { label: "First Gas", value: "2027", icon: "zap" },
+                { label: "Reserves", value: "~98 BCF", sub: "Billion Cubic Feet", icon: "droplets", highlight: true, color: "text-yellow-600 dark:text-yellow-400" },
+                { label: "Energy", value: "~14 B kWh", sub: "Annual Equiv.", icon: "battery-charging", color: "text-green-600 dark:text-green-400" },
+                { label: "Flow", value: "60 MMSCFD", sub: "High Productivity", icon: "gauge", color: "text-green-600 dark:text-green-400", highlight: true }
             ];
 
             // --- RENDER FUNCTIONS ---
@@ -751,14 +560,14 @@
                 if (!container) return;
                 
                 container.innerHTML = data.map(item => `
-                    <div class="flex items-start justify-between py-4 border-b border-slate-100 dark:border-slate-700 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors px-2 rounded-lg -mx-2">
+                    <div class="flex items-start justify-between py-3 md:py-4 border-b border-slate-100 dark:border-slate-700 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors px-2 rounded-lg -mx-2">
                         <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-                            <i data-lucide="${item.icon}" class="w-5 h-5"></i>
-                            <span class="text-sm font-bold uppercase tracking-wide opacity-80">${item.label}</span>
+                            <i data-lucide="${item.icon}" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span class="text-xs md:text-sm font-bold uppercase tracking-wide opacity-80">${item.label}</span>
                         </div>
                         <div class="text-right">
-                            <div class="font-bold ${item.highlight ? 'text-xl' : 'text-lg'} ${item.color || 'text-slate-800 dark:text-white'}">${item.value}</div>
-                            ${item.sub ? `<div class="text-xs text-slate-400 dark:text-slate-500 font-mono mt-1">${item.sub}</div>` : ''}
+                            <div class="font-bold ${item.highlight ? 'text-lg md:text-xl' : 'text-base md:text-lg'} ${item.color || 'text-slate-800 dark:text-white'}">${item.value}</div>
+                            ${item.sub ? `<div class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 font-mono mt-0.5">${item.sub}</div>` : ''}
                         </div>
                     </div>
                 `).join('');
@@ -770,31 +579,21 @@
 
                 container.innerHTML = customersData.map(c => `
                     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
-                        <div class="h-2 w-full ${c.color}"></div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="font-bold text-lg text-slate-800 dark:text-white">${c.name}</h3>
-                                <span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-2 py-1 rounded-md border border-slate-200 dark:border-slate-600">${c.mw} MW</span>
+                        <div class="h-1.5 md:h-2 w-full ${c.color}"></div>
+                        <div class="p-4 md:p-6">
+                            <div class="flex justify-between items-start mb-3 md:mb-4">
+                                <h3 class="font-bold text-base md:text-lg text-slate-800 dark:text-white">${c.name}</h3>
+                                <span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] md:text-xs font-bold px-2 py-1 rounded-md border border-slate-200 dark:border-slate-600">${c.mw} MW</span>
                             </div>
                             
-                            <div class="space-y-3">
-                                <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                                    <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
+                            <div class="space-y-2 md:space-y-3">
+                                <div class="flex items-center gap-2 text-xs md:text-sm text-slate-600 dark:text-slate-400">
+                                    <i data-lucide="settings" class="w-3 h-3 md:w-4 md:h-4 text-slate-400"></i>
                                     <span>${c.type}</span>
                                 </div>
-                                <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                                    <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                                <div class="flex items-center gap-2 text-xs md:text-sm text-slate-600 dark:text-slate-400">
+                                    <i data-lucide="file-text" class="w-3 h-3 md:w-4 md:h-4 text-slate-400"></i>
                                     <span>${c.psa}</span>
-                                </div>
-                                
-                                <div class="pt-3 border-t border-slate-100 dark:border-slate-700">
-                                    <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-                                        <span>WESM Activity</span>
-                                        <span class="font-medium ${c.wesm.includes('High') || c.wesm.includes('Active') ? 'text-orange-500' : 'text-slate-400'}">${c.wesm}</span>
-                                    </div>
-                                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
-                                        <div class="h-full ${c.color} opacity-80" style="width: ${c.wesm.includes('High') ? '90%' : c.wesm.includes('Active') ? '60%' : '20%'}"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -810,66 +609,44 @@
             function initCharts() {
                 const commonOptions = {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { 
                         y: { 
                             beginAtZero: true, 
-                            grid: { color: '#334155' }, // Dark grid
-                            ticks: { color: '#94a3b8' } 
+                            grid: { color: '#334155' }, 
+                            ticks: { color: '#94a3b8', font: { size: 10 } } 
                         },
                         x: { 
                             grid: { display: false },
-                            ticks: { color: '#94a3b8' }
+                            ticks: { color: '#94a3b8', font: { size: 10 } }
                         }
                     }
                 };
 
-                // Efficiency Chart
-                const effCtx = document.getElementById('efficiencyChart');
-                if(effCtx) {
-                    if (Chart.getChart(effCtx)) Chart.getChart(effCtx).destroy();
-                    new Chart(effCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Standard Gas', 'Engine Plant', 'Combined Cycle'],
-                            datasets: [{
-                                label: 'Billion kWh',
-                                data: [10.2, 13.1, 14.6],
-                                backgroundColor: ['rgba(148, 163, 184, 0.5)', 'rgba(59, 130, 246, 0.5)', 'rgba(34, 197, 94, 0.6)'],
-                                borderColor: ['rgb(148, 163, 184)', 'rgb(59, 130, 246)', 'rgb(34, 197, 94)'],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: commonOptions
-                    });
-                }
-
-                // Depletion Chart
                 const depCtx = document.getElementById('depletionChart');
                 if(depCtx) {
                     if (Chart.getChart(depCtx)) Chart.getChart(depCtx).destroy();
                     new Chart(depCtx, {
                         type: 'line',
                         data: {
-                            labels: ['2002', '2006', '2010', '2014', '2018', '2022', '2024', '2026', '2028', '2030', '2032'],
+                            labels: ['02', '06', '10', '14', '18', '22', '24', '26', '28', '30', '32'],
                             datasets: [
                                 {
-                                    label: 'Historical',
+                                    label: 'Hist',
                                     data: [350, 420, 450, 430, 410, 380, 250, null, null, null, null],
                                     borderColor: 'rgb(59, 130, 246)',
-                                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                                    tension: 0.4,
-                                    fill: true
+                                    tension: 0.4
                                 },
                                 {
-                                    label: 'Projected Decline',
+                                    label: 'Decline',
                                     data: [null, null, null, null, null, 380, 250, 150, 80, 30, 0],
                                     borderColor: 'rgb(239, 68, 68)',
                                     borderDash: [5, 5],
                                     tension: 0.4
                                 },
                                 {
-                                    label: 'With Phase 4',
+                                    label: 'Phase 4',
                                     data: [null, null, null, null, null, null, 250, 210, 180, 140, 100],
                                     borderColor: 'rgb(234, 179, 8)',
                                     backgroundColor: 'rgba(234, 179, 8, 0.1)',
@@ -883,48 +660,45 @@
                 }
             }
 
-            // --- MAP & INTERACTIVITY LOGIC ---
+            // --- MAP LOGIC ---
             let map, pipelineLayer;
 
             function initMap() {
                 const mapContainer = document.getElementById('map');
                 if (!mapContainer || mapContainer._leaflet_id) return;
 
-                map = L.map('map', { scrollWheelZoom: false }).setView([12.7, 120.5], 7);
+                // Adjust zoom for mobile vs desktop
+                const isMobile = window.innerWidth < 768;
+                const initialZoom = isMobile ? 6 : 7;
+                const initialCenter = isMobile ? [12.5, 120.5] : [12.7, 120.5];
+
+                map = L.map('map', { scrollWheelZoom: false }).setView(initialCenter, initialZoom);
 
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                     attribution: 'Esri'
                 }).addTo(map);
 
-                // Icons
                 const createIcon = (color, pulse) => L.divIcon({
                     className: 'custom-div-icon',
-                    html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 15px ${color}; ${pulse ? 'animation: pulse 2s infinite;' : ''}"></div>`,
-                    iconSize: [16, 16]
+                    html: `<div style="background-color: ${color}; width: ${isMobile?12:16}px; height: ${isMobile?12:16}px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px ${color}; ${pulse ? 'animation: pulse 2s infinite;' : ''}"></div>`,
+                    iconSize: [isMobile?12:16, isMobile?12:16]
                 });
 
                 L.marker([mapConfig.east1.lat, mapConfig.east1.lng], {icon: createIcon('#eab308', true)}).addTo(map).bindPopup("East 1");
                 L.marker([mapConfig.main.lat, mapConfig.main.lng], {icon: createIcon('#3b82f6', false)}).addTo(map).bindPopup("Main Platform");
-                
-                const batangasPopup = `<div class='p-1 text-slate-800'><b>Batangas Hub</b><br>First Gen Complex</div>`;
-                L.marker([mapConfig.batangas.lat, mapConfig.batangas.lng], {icon: createIcon('#22c55e', false)}).addTo(map).bindPopup(batangasPopup);
+                L.marker([mapConfig.batangas.lat, mapConfig.batangas.lng], {icon: createIcon('#22c55e', false)}).addTo(map).bindPopup("Batangas");
 
-                // Updated Realistic Route (South of Mindoro)
+                // Route: South of Mindoro
                 const routeLatLngs = [
-                    [11.536, 119.167], // Start: Main Platform
-                    [11.8, 120.2],     // Waypoint: Crossing sea North of Palawan/Cuyo
-                    [11.9, 121.2],     // Waypoint: South of Mindoro (passing Bulalacao/Semirara area)
-                    [12.6, 121.55],    // Waypoint: East of Mindoro (Tablas Strait)
-                    [13.3, 121.35],    // Waypoint: North East Mindoro (offshore Calapan)
-                    [13.6, 121.15],    // Waypoint: Entering Batangas Bay approach
-                    [13.76, 121.05]    // End: Batangas
+                    [11.536, 119.167], [11.8, 120.2], [11.9, 121.2], 
+                    [12.6, 121.55], [13.3, 121.35], [13.6, 121.15], [13.76, 121.05]
                 ];
                 
                 L.polyline([mapConfig.east1, mapConfig.main], { color: '#eab308', weight: 3, dashArray: '5, 5' }).addTo(map);
 
                 pipelineLayer = L.polyline(routeLatLngs, {
                     color: '#3b82f6',
-                    weight: 4,
+                    weight: isMobile ? 3 : 4,
                     opacity: 0.8,
                     className: 'pipeline-flow',
                     lineCap: 'round',
@@ -940,7 +714,6 @@
                 const flowValue = document.getElementById('flowValue');
                 const powerValue = document.getElementById('powerValue');
                 const statusText = document.getElementById('statusText');
-                
                 const btnTest = document.getElementById('btn-test-flow');
                 const btnMax = document.getElementById('btn-max-flow');
                 
@@ -949,10 +722,9 @@
                 const updateFlow = (val) => {
                     slider.value = val;
                     flowValue.textContent = val;
-                    const percent = Math.round((val / 400) * 20);
-                    powerValue.textContent = `~${percent}`;
+                    powerValue.textContent = `~${Math.round((val / 400) * 20)}`;
                     
-                    if(val < 100) statusText.textContent = "Low Pressure / Maintenance";
+                    if(val < 100) statusText.textContent = "Low / Maintenance";
                     else if (val < 300) statusText.textContent = "Steady Flow";
                     else statusText.textContent = "Peak Production";
 
@@ -960,7 +732,7 @@
                     if(pathElement) {
                         const duration = Math.max(0.5, 10 - (val / 50)); 
                         pathElement.style.animationDuration = `${duration}s`;
-                        pipelineLayer.setStyle({ opacity: 0.5 + (val / 1000), weight: 4 + (val/100) });
+                        pipelineLayer.setStyle({ opacity: 0.5 + (val / 1000) });
                     }
                 };
 
@@ -969,19 +741,17 @@
                 if(btnMax) btnMax.addEventListener('click', () => updateFlow(500));
             }
 
-            // --- ANIMATION OBSERVER ---
             function setupObserver() {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('reveal-visible');
                             if (entry.target.id === 'map-section') setTimeout(initMap, 100);
-                            if (entry.target.id === 'graph-section') setTimeout(initCharts, 100);
-                            if (entry.target.id === 'depletion-section') setTimeout(initCharts, 100); // Re-init charts to ensure rendering
+                            if (entry.target.id === 'depletion-section') setTimeout(initCharts, 100);
                             observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.15 });
+                }, { threshold: 0.1 });
                 document.querySelectorAll('.reveal-on-scroll').forEach(section => observer.observe(section));
             }
 
